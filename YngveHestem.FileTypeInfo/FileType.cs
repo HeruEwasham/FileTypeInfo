@@ -38,6 +38,7 @@ namespace YngveHestem.FileTypeInfo
 		{
 			DescriptiveText = descriptiveText;
 			Extensions = extensions;
+            MimeTypes = mimeTypes;
 			UTTypes = uTTypes;
 		}
 

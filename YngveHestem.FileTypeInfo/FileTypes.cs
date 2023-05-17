@@ -130,7 +130,9 @@ namespace YngveHestem.FileTypeInfo
             //UTType found by trying "random" files with the extension/type by calling mdls on mac terminal. MIME-type found different places online.
             new FileType("Markdown", new string[] { ".md", ".markdown", ".mdown", ".markdn", ".mkd" }, new string[] { "text/markdown" }, new string[] { "net.daringfireball.markdown" }),
             new FileType("Epub", new string[] { ".epub" }, new string[] { "application/epub+zip" }, new string[] { "org.idpf.epub-container" }),
-            new FileType("MPEG-4 Apple m4v", new string[] { ".m4v" }, new string[] { "video/mp4" }, new string[] { "com.apple.m4v-video" })
+            new FileType("MPEG-4 Apple m4v", new string[] { ".m4v" }, new string[] { "video/mp4" }, new string[] { "com.apple.m4v-video" }),
+            new FileType("Matroska", new string[] { ".mkv", ".mka", ".mks" }, new string[] { "video/x-matroska", "audio/x-matroska" }, new string[] { "org.matroska.mkv" }),
+            new FileType("SubRip", new string[] { ".srt" }, new string[] { "application/x-subrip" }, new string[] { "dyn.ah62d4rv4ge81g6xy" })
         };
 
         /// <summary>
@@ -206,7 +208,8 @@ namespace YngveHestem.FileTypeInfo
                     "com.microsoft.word.doc",
                     "com.microsoft.excel.xls",
                     "com.microsoft.powerpoint.​ppt",
-                    "com.allume.stuffit-archive"
+                    "com.allume.stuffit-archive",
+                    "dyn.ah62d4rv4ge81g6xy"
                 }
             },
             { "public.presentation",
@@ -368,7 +371,8 @@ namespace YngveHestem.FileTypeInfo
                     "com.microsoft.windows-​media-wm",
                     "com.microsoft.windows-​media-wmv",
                     "com.microsoft.windows-​media-wmp",
-                    "com.real.realmedia"
+                    "com.real.realmedia",
+                    "org.matroska.mkv"
                 }
             },
             { "public.audio",
@@ -390,10 +394,11 @@ namespace YngveHestem.FileTypeInfo
                     "com.real.realaudio"
                 }
             },
-            { "public.mpeg4",
+            { "public.mpeg-4",
                 new string[]
                 {
-                    "public.mpeg-4-audio"
+                    "public.mpeg-4-audio",
+                    "com.apple.m4v-video"
                 }
             },
             { "public.directory",
@@ -631,6 +636,32 @@ namespace YngveHestem.FileTypeInfo
                     result.Add(fileType);
                 }
             }
+            return result;
+        }
+
+        /// <summary>
+        /// Get a list of UTTypes which are defined as it's children (and it's grandchildren, etc).
+        /// </summary>
+        /// <param name="listOfParents">The list of parents.</param>
+        /// <param name="parent">The UTType that is the parent to get it's children and it's grandchildren.</param>
+        /// <param name="includeParentAsItem">Should the given parent be part of the list that is returned.</param>
+        /// <returns></returns>
+        public static List<string> GetUTTypeChildrenByParent(this Dictionary<string, string[]> listOfParents, string parent, bool includeParentAsItem = true)
+        {
+            var result = new List<string>();
+            if (includeParentAsItem)
+            {
+                result.Add(parent);
+            }
+
+            if (listOfParents.ContainsKey(parent))
+            {
+                foreach(var child in listOfParents[parent])
+                {
+                    result.AddRange(listOfParents.GetUTTypeChildrenByParent(child, true));
+                }
+            }
+
             return result;
         }
     }
