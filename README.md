@@ -2,9 +2,13 @@
 
 A collection of FileTypes with both file extensions, mime-types and UTType (UTI (Universal Type Identifier)). The FileType-structure makes it also easy to create other types not defined yet also.
 
+##How to use this package
+
+The easiest way to use the package is to download it from nuget: https://www.nuget.org/packages/YngveHestem.FileTypeInfo/
+
 ## Why this was made
 
-This was made because I needed a way to easily get both extensions, mime-types and UTType (also called UTI (Universal Type Identifier)) of a given type/extension in a MAUI-application. I tried to find a library that could do this, but could only find extension and mime-type-mappings, and not anything with UTType/UTI.
+This small project was made because I needed a way to easily get both extensions, mime-types and UTType (also called UTI (Universal Type Identifier)) of a given type/extension in a MAUI-application. I tried to find a library that could do this, but could only find extension and mime-type-mappings, and not anything with UTType/UTI, which is needed for Apple-systems.
 
 ## Features
 
