@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace YngveHestem.FileTypeInfo
 {
@@ -662,6 +663,69 @@ namespace YngveHestem.FileTypeInfo
                 }
             }
 
+            return result;
+        }
+
+        /// <summary>
+        /// Gets a one dimensional list of all the extensions in the list.
+        /// </summary>
+        /// <param name="fileTypes">The list of file types.</param>
+        /// <param name="removeDuplicates">If true, removes evt. duplicates, so it will not be shown.</param>
+        /// <returns></returns>
+        public static List<string> AllExtensions(this IEnumerable<FileType> fileTypes, bool removeDuplicates = true)
+        {
+            var result = new List<string>();
+            foreach (var fileType in fileTypes)
+            {
+                result.AddRange(fileType.Extensions);
+            }
+
+            if (removeDuplicates)
+            {
+                return result.Distinct().ToList();
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Gets a one dimensional list of all the mime-types in the list.
+        /// </summary>
+        /// <param name="fileTypes">The list of file types.</param>
+        /// <param name="removeDuplicates">If true, removes evt. duplicates, so it will not be shown.</param>
+        /// <returns></returns>
+        public static List<string> AllMimeTypes(this IEnumerable<FileType> fileTypes, bool removeDuplicates = true)
+        {
+            var result = new List<string>();
+            foreach (var fileType in fileTypes)
+            {
+                result.AddRange(fileType.MimeTypes);
+            }
+
+            if (removeDuplicates)
+            {
+                return result.Distinct().ToList();
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Gets a one dimensional list of all the mime-types in the list.
+        /// </summary>
+        /// <param name="fileTypes">The list of file types.</param>
+        /// <param name="removeDuplicates">If true, removes evt. duplicates, so it will not be shown.</param>
+        /// <returns></returns>
+        public static List<string> AllUTTypes(this IEnumerable<FileType> fileTypes, bool removeDuplicates = true)
+        {
+            var result = new List<string>();
+            foreach (var fileType in fileTypes)
+            {
+                result.AddRange(fileType.UTTypes);
+            }
+
+            if (removeDuplicates)
+            {
+                return result.Distinct().ToList();
+            }
             return result;
         }
     }
