@@ -532,7 +532,11 @@ namespace YngveHestem.FileTypeInfo
         public static List<FileType> GetByExtension(this IEnumerable<FileType> fileTypes, IEnumerable<string> extensions)
         {
             var result = new List<FileType>();
-            foreach(var fileType in fileTypes)
+            if (fileTypes == null)
+            {
+                return result;
+            }
+            foreach (var fileType in fileTypes)
             {
                 if (fileType.HasExtension(extensions))
                 {
@@ -552,7 +556,11 @@ namespace YngveHestem.FileTypeInfo
         public static List<FileType> GetByExtension(this IEnumerable<FileType> fileTypes, string extension)
         {
             var result = new List<FileType>();
-            foreach(var fileType in fileTypes)
+            if (fileTypes == null)
+            {
+                return result;
+            }
+            foreach (var fileType in fileTypes)
             {
                 if (fileType.HasExtension(extension))
                 {
@@ -571,6 +579,10 @@ namespace YngveHestem.FileTypeInfo
         public static List<FileType> GetByMimeType(this IEnumerable<FileType> fileTypes, IEnumerable<string> mimeTypes)
         {
             var result = new List<FileType>();
+            if (fileTypes == null)
+            {
+                return result;
+            }
             foreach (var fileType in fileTypes)
             {
                 if (fileType.HasMimeType(mimeTypes))
@@ -591,6 +603,10 @@ namespace YngveHestem.FileTypeInfo
         public static List<FileType> GetByMimeType(this IEnumerable<FileType> fileTypes, string mimeType)
         {
             var result = new List<FileType>();
+            if (fileTypes == null)
+            {
+                return result;
+            }
             foreach (var fileType in fileTypes)
             {
                 if (fileType.HasMimeType(mimeType))
@@ -610,6 +626,10 @@ namespace YngveHestem.FileTypeInfo
         public static List<FileType> GetByUTType(this IEnumerable<FileType> fileTypes, IEnumerable<string> uTType)
         {
             var result = new List<FileType>();
+            if (fileTypes == null)
+            {
+                return result;
+            }
             foreach (var fileType in fileTypes)
             {
                 if (fileType.HasUTType(uTType))
@@ -630,6 +650,10 @@ namespace YngveHestem.FileTypeInfo
         public static List<FileType> GetByUTType(this IEnumerable<FileType> fileTypes, string uTType)
         {
             var result = new List<FileType>();
+            if (fileTypes == null)
+            {
+                return result;
+            }
             foreach (var fileType in fileTypes)
             {
                 if (fileType.HasUTType(uTType))
@@ -655,7 +679,7 @@ namespace YngveHestem.FileTypeInfo
                 result.Add(parent);
             }
 
-            if (listOfParents.ContainsKey(parent))
+            if (listOfParents != null && listOfParents.ContainsKey(parent))
             {
                 foreach(var child in listOfParents[parent])
                 {
@@ -675,6 +699,10 @@ namespace YngveHestem.FileTypeInfo
         public static List<string> AllExtensions(this IEnumerable<FileType> fileTypes, bool removeDuplicates = true)
         {
             var result = new List<string>();
+            if (fileTypes == null)
+            {
+                return result;
+            }
             foreach (var fileType in fileTypes)
             {
                 result.AddRange(fileType.Extensions);
@@ -696,6 +724,10 @@ namespace YngveHestem.FileTypeInfo
         public static List<string> AllMimeTypes(this IEnumerable<FileType> fileTypes, bool removeDuplicates = true)
         {
             var result = new List<string>();
+            if (fileTypes == null)
+            {
+                return result;
+            }
             foreach (var fileType in fileTypes)
             {
                 result.AddRange(fileType.MimeTypes);
@@ -717,6 +749,10 @@ namespace YngveHestem.FileTypeInfo
         public static List<string> AllUTTypes(this IEnumerable<FileType> fileTypes, bool removeDuplicates = true)
         {
             var result = new List<string>();
+            if (fileTypes == null)
+            {
+                return result;
+            }
             foreach (var fileType in fileTypes)
             {
                 result.AddRange(fileType.UTTypes);

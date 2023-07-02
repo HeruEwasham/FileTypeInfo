@@ -49,6 +49,10 @@ namespace YngveHestem.FileTypeInfo
         /// <returns></returns>
         public bool HasExtension(string extension)
         {
+            if (extension == null)
+            {
+                return false;
+            }
             return Extensions.Contains(extension);
         }
 
@@ -59,6 +63,10 @@ namespace YngveHestem.FileTypeInfo
         /// <returns></returns>
         public bool HasExtension(IEnumerable<string> extensions)
         {
+            if (extensions == null)
+            {
+                return false;
+            }
             foreach(var extension in extensions)
             {
                 if (Extensions.Contains(extension))
@@ -76,6 +84,10 @@ namespace YngveHestem.FileTypeInfo
         /// <returns></returns>
         public bool HasMimeType(string mimeType)
         {
+            if (mimeType == null)
+            {
+                return false;
+            }
             return MimeTypes.Contains(mimeType);
         }
 
@@ -86,6 +98,10 @@ namespace YngveHestem.FileTypeInfo
         /// <returns></returns>
         public bool HasMimeType(IEnumerable<string> mimeTypes)
         {
+            if (mimeTypes == null)
+            {
+                return false;
+            }
             foreach (var mimeType in mimeTypes)
             {
                 if (MimeTypes.Contains(mimeType))
@@ -103,6 +119,10 @@ namespace YngveHestem.FileTypeInfo
         /// <returns></returns>
         public bool HasUTType(string uTType)
         {
+            if (uTType == null)
+            {
+                return false;
+            }
             return UTTypes.Contains(uTType);
         }
 
@@ -113,6 +133,10 @@ namespace YngveHestem.FileTypeInfo
         /// <returns></returns>
         public bool HasUTType(IEnumerable<string> uTTypes)
         {
+            if (uTTypes == null)
+            {
+                return false;
+            }
             foreach (var uTType in uTTypes)
             {
                 if (UTTypes.Contains(uTType))
