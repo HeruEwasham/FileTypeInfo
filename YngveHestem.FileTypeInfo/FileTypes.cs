@@ -133,7 +133,11 @@ namespace YngveHestem.FileTypeInfo
             new FileType("Epub", new string[] { ".epub" }, new string[] { "application/epub+zip" }, new string[] { "org.idpf.epub-container" }),
             new FileType("MPEG-4 Apple m4v", new string[] { ".m4v" }, new string[] { "video/mp4" }, new string[] { "com.apple.m4v-video" }),
             new FileType("Matroska", new string[] { ".mkv", ".mka", ".mks" }, new string[] { "video/x-matroska", "audio/x-matroska" }, new string[] { "org.matroska.mkv" }),
-            new FileType("SubRip", new string[] { ".srt" }, new string[] { "application/x-subrip" }, new string[] { "dyn.ah62d4rv4ge81g6xy" })
+            new FileType("SubRip", new string[] { ".srt" }, new string[] { "application/x-subrip" }, new string[] { "dyn.ah62d4rv4ge81g6xy" }),
+            new FileType("JSON", new string[] { ".json" }, new string[] { "application/json" }, new string[] { "public.json" }),
+            new FileType("Musical Instrument Digital Interface (MIDI)", new string[] { ".mid", ".midi" }, new string[] { "audio/midi", "audio/x-midi" }, new string[] { "public.midi-audio" }),
+            new FileType("YAML", new string[] { ".yaml" }, new string[] { "application/yaml", "application/x-yaml", "text/yaml", "text/x-yaml", "application/openapi+yaml" }, new string[] { "public.yaml" }),
+            new FileType("WebVTT", new string[] { ".vtt" }, new string[] { "text/vtt" }, new string[] { "org.w3.webvtt" })
         };
 
         /// <summary>
@@ -241,7 +245,10 @@ namespace YngveHestem.FileTypeInfo
                     "public.html",
                     "public.xml",
                     "com.apple.ostype",
-                    "com.apple.nspboard-type"
+                    "com.apple.nspboard-type",
+                    "public.json",
+                    "public.yaml",
+                    "org.w3.webvtt"
                 }
             },
             { "public.plain-text",
@@ -392,7 +399,8 @@ namespace YngveHestem.FileTypeInfo
                     "com.microsoft.windows-​media-wvx",
                     "com.microsoft.windows-​media-wax",
                     "com.digidesign.sd2-audio",
-                    "com.real.realaudio"
+                    "com.real.realaudio",
+                    "public.midi-audio"
                 }
             },
             { "public.mpeg-4",
