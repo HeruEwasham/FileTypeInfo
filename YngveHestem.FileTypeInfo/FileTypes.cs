@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace YngveHestem.FileTypeInfo
@@ -137,7 +136,11 @@ namespace YngveHestem.FileTypeInfo
             new FileType("JSON", new string[] { ".json" }, new string[] { "application/json" }, new string[] { "public.json" }),
             new FileType("Musical Instrument Digital Interface (MIDI)", new string[] { ".mid", ".midi" }, new string[] { "audio/midi", "audio/x-midi" }, new string[] { "public.midi-audio" }),
             new FileType("YAML", new string[] { ".yaml" }, new string[] { "application/yaml", "application/x-yaml", "text/yaml", "text/x-yaml", "application/openapi+yaml" }, new string[] { "public.yaml" }),
-            new FileType("WebVTT", new string[] { ".vtt" }, new string[] { "text/vtt" }, new string[] { "org.w3.webvtt" })
+            new FileType("WebVTT", new string[] { ".vtt" }, new string[] { "text/vtt" }, new string[] { "org.w3.webvtt" }),
+            new FileType("SubStation Alpha", new string[] { ".ass" }, new string[] { "text/plain" }, new string[] { "dyn.ah62d4rv4ge80c65x" }),
+            new FileType("Microsoft Excel Open Document", new string[] { ".xlsx" }, new string[] { "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }, new string[] { "org.openxmlformats.spreadsheetml.sheet" }),
+            new FileType("Microsoft PowerPoint Open Document", new string[] { ".pptx" }, new string[] { "application/vnd.openxmlformats-officedocument.presentationml.presentation" }, new string[] { "org.openxmlformats.presentationml.presentation" }),
+            new FileType("Microsoft Word Open Document", new string[] { ".docx" }, new string[] { "application/vnd.openxmlformats-officedocument.wordprocessingml.document" }, new string[] { "org.openxmlformats.wordprocessingml.document" })
         };
 
         /// <summary>
@@ -214,7 +217,9 @@ namespace YngveHestem.FileTypeInfo
                     "com.microsoft.excel.xls",
                     "com.microsoft.powerpoint.​ppt",
                     "com.allume.stuffit-archive",
-                    "dyn.ah62d4rv4ge81g6xy"
+                    "dyn.ah62d4rv4ge81g6xy",
+                    "dyn.ah62d4rv4ge80c65x",
+                    "org.openxmlformats.openxml"
                 }
             },
             { "public.presentation",
@@ -528,7 +533,15 @@ namespace YngveHestem.FileTypeInfo
                     "com.j2.jfx-fax",
                     "com.js.efx-fax"
                 }
-            }
+            },
+            { "org.openxmlformats.openxml",
+                new string[]
+                {
+                    "org.openxmlformats.wordprocessingml.document",
+                    "org.openxmlformats.presentationml.presentation",
+                    "org.openxmlformats.spreadsheetml.sheet"
+                }
+            },
         };
 
         /// <summary>
@@ -771,6 +784,42 @@ namespace YngveHestem.FileTypeInfo
                 return result.Distinct().ToList();
             }
             return result;
+        }
+
+        /// <summary>
+        /// Get a list of filetypes which UTType is defined as a child of the given parent (or it's grandchildren, etc). The full defined list of parents is used.
+        /// </summary>
+        /// <param name="fileTypes">The list of file types to check against.</param>
+        /// <param name="parent">The UTType that is the parent to get it's children and it's grandchildren.</param>
+        /// <param name="includeParentAsItem">Should the given parent be part of the list that is returned.</param>
+        /// <returns></returns>
+        public static List<FileType> GetFileTypesByUTTypeParent(this IEnumerable<FileType> fileTypes, string parent, bool includeParentAsItem = true)
+        {
+            return fileTypes.GetFileTypesByUTTypeParent(UTTypeParentsList, parent, includeParentAsItem);
+        }
+
+        /// <summary>
+        /// Get a list of filetypes which UTType is defined as a child of the given parent (or it's grandchildren, etc).
+        /// </summary>
+        /// <param name="fileTypes">The list of file types to check against.</param>
+        /// <param name="listOfParents">The list of parents.</param>
+        /// <param name="parent">The UTType that is the parent to get it's children and it's grandchildren.</param>
+        /// <param name="includeParentAsItem">Should the given parent be part of the list that is returned.</param>
+        /// <returns></returns>
+        public static List<FileType> GetFileTypesByUTTypeParent(this IEnumerable<FileType> fileTypes, Dictionary<string, string[]> listOfParents, string parent, bool includeParentAsItem = true)
+        {
+            return fileTypes.GetByUTType(listOfParents.GetUTTypeChildrenByParent(parent, includeParentAsItem));
+        }
+
+        /// <summary>
+        /// Get a list of filetypes which UTType is defined as a child of the given parent (or it's grandchildren, etc). The full list of filetypes and parents is used.
+        /// </summary>
+        /// <param name="parent">The UTType that is the parent to get it's children and it's grandchildren.</param>
+        /// <param name="includeParentAsItem">Should the given parent be part of the list that is returned.</param>
+        /// <returns></returns>
+        public static List<FileType> GetFileTypesByUTTypeParent(string parent, bool includeParentAsItem = true)
+        {
+            return FileTypes.GetFileTypesByUTTypeParent(parent, includeParentAsItem);
         }
     }
 }
